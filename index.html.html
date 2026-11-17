@@ -1,0 +1,2086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rudrika Sahu | Cybersecurity & UI/UX Designer Portfolio</title>
+
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        /* ==========================================================================
+           1. CSS VARIABLES & THEME DESIGN TOKENS
+           ========================================================================== */
+        :root {
+            --bg-primary: #0f172a;        /* Deep Slate Background */
+            --bg-secondary: #0b1120;      /* Darker Contrast Section */
+            --surface-card: #1e293b;      /* Elevated Card Surface */
+            --surface-hover: #263449;     /* Card Hover State */
+            --border-subtle: rgba(148, 163, 184, 0.16);
+
+            --text-primary: #f8fafc;      /* Crisp White Text */
+            --text-secondary: #cbd5e1;    /* Light Slate Body Text */
+            --text-muted: #94a3b8;        /* Muted Meta Text */
+
+            /* Dual Accents: Cybersecurity (Emerald) & UI/UX Design (Violet) */
+            --accent-cyber: #10b981;
+            --accent-cyan: #06b6d4;
+            --accent-design: #8b5cf6;
+
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ==========================================================================
+           2. RESET & BASE STYLES
+           ========================================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 84px;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.65;
+            overflow-x: hidden;
+            background-image:
+                radial-gradient(circle at 12% 15%, rgba(16, 185, 129, 0.08) 0%, transparent 38%),
+                radial-gradient(circle at 88% 22%, rgba(139, 92, 246, 0.09) 0%, transparent 40%);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            outline: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .mono {
+            font-family: var(--font-mono);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent-cyber), var(--accent-cyan) 48%, var(--accent-design));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ==========================================================================
+           3. STICKY NAVIGATION MENU
+           ========================================================================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 76px;
+            background: rgba(15, 23, 42, 0.88);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border-subtle);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand-logo {
+            font-family: var(--font-mono);
+            font-size: 1.2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+        }
+
+        .brand-logo .bracket {
+            color: var(--accent-design);
+        }
+
+        .brand-logo .dot {
+            color: var(--accent-cyber);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.75rem;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyber), var(--accent-design));
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            background: transparent;
+            color: var(--text-primary);
+            font-size: 1.4rem;
+            padding: 0.45rem;
+        }
+
+        /* Mobile Navigation Drawer */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 76px;
+            left: 0;
+            right: 0;
+            background: var(--surface-card);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 1.5rem;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 999;
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.45);
+        }
+
+        .mobile-menu.open {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            color: var(--text-secondary);
+            font-weight: 500;
+            padding: 0.45rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .mobile-menu a:hover {
+            color: var(--accent-cyber);
+        }
+
+        /* ==========================================================================
+           4. HEADER / HERO SECTION (NAME, PROFILE PICTURE & SHORT INTRO)
+           ========================================================================== */
+        .hero {
+            padding: 9rem 0 5rem;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 3.5rem;
+            align-items: center;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.45rem 1rem;
+            background: var(--surface-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 999px;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--accent-cyber);
+            margin-bottom: 1.4rem;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-cyber);
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        .hero-title {
+            font-size: clamp(2.35rem, 4.8vw, 3.7rem);
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        .pronouns {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            vertical-align: middle;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+        }
+
+        .role-cyber { color: var(--accent-cyber); }
+        .role-design { color: var(--accent-design); }
+
+        .hero-intro {
+            color: var(--text-secondary);
+            font-size: 1.03rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .hero-cta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-cyber), var(--accent-cyan));
+            color: #04130e;
+            font-weight: 700;
+            padding: 0.85rem 1.65rem;
+            border-radius: var(--radius-md);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.35);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 30px -5px rgba(16, 185, 129, 0.5);
+        }
+
+        .btn-secondary {
+            background: var(--surface-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-subtle);
+            font-weight: 600;
+            padding: 0.85rem 1.65rem;
+            border-radius: var(--radius-md);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-design);
+            background: rgba(139, 92, 246, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .hero-socials {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+        }
+
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-sm);
+            background: var(--surface-card);
+            border: 1px solid var(--border-subtle);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .social-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--accent-cyber);
+            transform: translateY(-2px);
+        }
+
+        /* Circular Profile Picture Card */
+        .profile-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 2.25rem 1.75rem;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .profile-ring {
+            width: 176px;
+            height: 176px;
+            margin: 0 auto 1.35rem;
+            border-radius: 50%;
+            padding: 4px;
+            background: linear-gradient(135deg, var(--accent-cyber), var(--accent-cyan), var(--accent-design));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 22%;
+            display: block;
+        }
+
+        .avatar-initials {
+            font-family: var(--font-mono);
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 2px;
+        }
+
+        .profile-name {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-meta {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--accent-cyber);
+            margin-bottom: 1rem;
+        }
+
+        .profile-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .mini-badge {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            padding: 0.3rem 0.7rem;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+        }
+
+        /* ==========================================================================
+           5. COMMON SECTION STYLING
+           ========================================================================== */
+        section {
+            padding: 5.5rem 0;
+        }
+
+        .section-alt {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 660px;
+            margin: 0 auto 3.5rem;
+        }
+
+        .section-tag {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-cyan);
+            display: inline-block;
+            margin-bottom: 0.55rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.85rem, 3.5vw, 2.4rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.7rem;
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* ==========================================================================
+           6. EDUCATIONAL BACKGROUND, INTERESTS & CAREER GOALS
+           ========================================================================== */
+        .about-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.75rem;
+        }
+
+        .info-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 1.85rem;
+            transition: var(--transition);
+        }
+
+        .info-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(148, 163, 184, 0.32);
+        }
+
+        .card-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .icon-cyber {
+            background: rgba(16, 185, 129, 0.14);
+            color: var(--accent-cyber);
+        }
+
+        .icon-design {
+            background: rgba(139, 92, 246, 0.14);
+            color: var(--accent-design);
+        }
+
+        .icon-cyan {
+            background: rgba(6, 182, 212, 0.14);
+            color: var(--accent-cyan);
+        }
+
+        .info-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.85rem;
+        }
+
+        .info-card p {
+            color: var(--text-secondary);
+            font-size: 0.94rem;
+            margin-bottom: 0.85rem;
+        }
+
+        .clean-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.55rem;
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+        }
+
+        .clean-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.55rem;
+        }
+
+        .clean-list i {
+            color: var(--accent-cyber);
+            margin-top: 0.25rem;
+            font-size: 0.85rem;
+        }
+
+        /* ==========================================================================
+           7. TECHNICAL SKILLS SECTION
+           ========================================================================== */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.75rem;
+        }
+
+        .skill-box {
+            background: var(--surface-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 1.85rem;
+            transition: var(--transition);
+        }
+
+        .skill-box:hover {
+            transform: translateY(-4px);
+            background: var(--surface-hover);
+        }
+
+        .skill-header {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            margin-bottom: 1.35rem;
+        }
+
+        .skill-header h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+        .pill-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+        }
+
+        .skill-pill {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            padding: 0.42rem 0.82rem;
+            border-radius: var(--radius-sm);
+            background: var(--bg-primary);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .skill-pill:hover {
+            border-color: var(--accent-cyber);
+            color: var(--text-primary);
+        }
+
+        /* ==========================================================================
+           8. ACADEMIC & PERSONAL PROJECTS SECTION
+           ========================================================================== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.85rem;
+        }
+
+        .project-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(16, 185, 129, 0.4);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+        }
+
+        .project-body {
+            padding: 1.75rem;
+        }
+
+        .project-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.1rem;
+        }
+
+        .badge-cyber {
+            background: rgba(16, 185, 129, 0.14);
+            color: var(--accent-cyber);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            padding: 0.28rem 0.72rem;
+            border-radius: 999px;
+        }
+
+        .badge-design {
+            background: rgba(139, 92, 246, 0.14);
+            color: var(--accent-design);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            padding: 0.28rem 0.72rem;
+            border-radius: 999px;
+        }
+
+        .project-title {
+            font-size: 1.18rem;
+            font-weight: 700;
+            margin-bottom: 0.7rem;
+            line-height: 1.35;
+        }
+
+        .project-desc {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+        }
+
+        .project-tag {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            padding: 0.28rem 0.62rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .project-footer {
+            padding: 1rem 1.75rem;
+            background: rgba(15, 23, 42, 0.6);
+            border-top: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .btn-details {
+            background: transparent;
+            color: var(--accent-cyan);
+            font-size: 0.86rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            transition: var(--transition);
+        }
+
+        .btn-details:hover {
+            color: var(--accent-cyber);
+            text-decoration: underline;
+        }
+
+        .repo-link {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: var(--transition);
+        }
+
+        .repo-link:hover {
+            color: var(--text-primary);
+        }
+
+        /* ==========================================================================
+           9. QUALIFICATIONS, INSTITUTIONS & PASSING YEARS (TABLE + TIMELINE)
+           ========================================================================== */
+        .qual-table-wrapper {
+            background: var(--surface-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            overflow-x: auto;
+            margin-bottom: 2.5rem;
+        }
+
+        .qual-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            min-width: 640px;
+        }
+
+        .qual-table th {
+            background: rgba(11, 17, 32, 0.75);
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--accent-cyan);
+            padding: 1.1rem 1.5rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .qual-table td {
+            padding: 1.15rem 1.5rem;
+            border-bottom: 1px solid var(--border-subtle);
+            font-size: 0.94rem;
+            color: var(--text-secondary);
+        }
+
+        .qual-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .qual-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .qual-degree {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .qual-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .qual-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 1.4rem;
+            border-top: 3px solid var(--accent-cyber);
+        }
+
+        .qual-card.secondary {
+            border-top-color: var(--accent-design);
+        }
+
+        .qual-year {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--accent-cyber);
+            display: block;
+            margin-bottom: 0.35rem;
+        }
+
+        .qual-card h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .qual-card p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+        }
+
+        /* ==========================================================================
+           10. CONTACT & SOCIAL PROFILES SECTION
+           ========================================================================== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 0.95fr 1.05fr;
+            gap: 2.25rem;
+            max-width: 1020px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+        }
+
+        .contact-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.7rem;
+        }
+
+        .contact-card p {
+            color: var(--text-secondary);
+            font-size: 0.94rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.95rem;
+        }
+
+        .social-item {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            padding: 0.75rem 1rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            transition: var(--transition);
+            word-break: break-all;
+        }
+
+        .social-item:hover {
+            border-color: var(--accent-cyber);
+            transform: translateX(3px);
+        }
+
+        .social-item i {
+            color: var(--accent-cyber);
+            font-size: 1.1rem;
+            width: 22px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.1rem;
+        }
+
+        .form-label {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 0.76rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-secondary);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-control {
+            width: 100%;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            padding: 0.8rem 1rem;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.94rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-cyber);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.14);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, var(--accent-cyber), var(--accent-design));
+            color: #ffffff;
+            font-weight: 700;
+            padding: 0.9rem;
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.55rem;
+            transition: var(--transition);
+        }
+
+        .btn-submit:hover {
+            opacity: 0.94;
+            transform: translateY(-1px);
+        }
+
+        footer {
+            padding: 2rem 0;
+            border-top: 1px solid var(--border-subtle);
+            text-align: center;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* ==========================================================================
+           11. MODAL & TOAST NOTIFICATION
+           ========================================================================== */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 8, 17, 0.82);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1.25rem;
+            z-index: 2000;
+        }
+
+        .modal-backdrop.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: var(--surface-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 580px;
+            max-height: 88vh;
+            overflow-y: auto;
+            padding: 2rem;
+            position: relative;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.2rem;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background: var(--surface-card);
+            border: 1px solid var(--accent-cyber);
+            color: var(--text-primary);
+            padding: 0.9rem 1.35rem;
+            border-radius: var(--radius-md);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            z-index: 3000;
+            transform: translateY(130%);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast i {
+            color: var(--accent-cyber);
+            font-size: 1.1rem;
+        }
+
+        /* ==========================================================================
+           12. RESPONSIVE BREAKPOINTS
+           ========================================================================== */
+        @media (max-width: 992px) {
+            .hero-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .about-cards-grid,
+            .skills-grid,
+            .projects-grid,
+            .qual-cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .about-cards-grid,
+            .skills-grid,
+            .projects-grid,
+            .qual-cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================================================
+         1. NAVIGATION MENU
+         ======================================================================== -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="#home" class="brand-logo">
+                <span class="bracket">&lt;</span>
+                <span>Rudrika<span class="dot">.</span>Sahu</span>
+                <span class="bracket">/&gt;</span>
+            </a>
+
+            <nav class="nav-links" id="desktop-nav">
+                <a href="#home" class="active">Home</a>
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#qualifications">Qualifications</a>
+                <a href="#contact">Contact</a>
+                <button class="btn-secondary" style="padding: 0.45rem 0.95rem; font-size: 0.84rem;" onclick="openResumeModal()">
+                    <i class="fa-regular fa-file-lines"></i>
+                    <span>Resume</span>
+                </button>
+            </nav>
+
+            <button class="hamburger" id="hamburger-btn" aria-label="Toggle Menu" onclick="toggleMobileMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <nav class="mobile-menu" id="mobile-menu">
+        <a href="#home" onclick="closeMobileMenu()">Home</a>
+        <a href="#about" onclick="closeMobileMenu()">About</a>
+        <a href="#skills" onclick="closeMobileMenu()">Skills</a>
+        <a href="#projects" onclick="closeMobileMenu()">Projects</a>
+        <a href="#qualifications" onclick="closeMobileMenu()">Qualifications</a>
+        <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+        <a href="javascript:void(0)" onclick="closeMobileMenu(); openResumeModal();">Preview Resume</a>
+    </nav>
+
+    <!-- ========================================================================
+         2. HEADER / HERO SECTION (NAME, PROFILE PICTURE & SHORT INTRODUCTION)
+         ======================================================================== -->
+    <section id="home" class="hero">
+        <div class="container hero-grid">
+            <!-- Left Column: Name & Short Introduction -->
+            <div>
+                <div class="status-pill">
+                    <span class="pulse-dot"></span>
+                    <span>3rd Year B.Tech CSE • IIST Indore</span>
+                </div>
+
+                <h1 class="hero-title">
+                    Hi, I'm <span class="gradient-text">Rudrika Sahu</span>
+                    <span class="pronouns">(she/her)</span>
+                </h1>
+
+                <p class="hero-subtitle">
+                    <span class="role-cyber">Aspiring Cybersecurity Analyst</span> &amp;
+                    <span class="role-design">UI/UX Designer</span>
+                </p>
+
+                <p class="hero-intro">
+                    I am a 3rd-year Computer Science &amp; Engineering undergraduate at Indore Institute of Science and Technology (IIST), Indore. With a strong academic foundation and active membership in our college Cybersecurity Club, I am passionate about securing digital systems and designing intuitive, user-friendly interfaces.
+                </p>
+
+                <div class="hero-cta">
+                    <a href="#projects" class="btn-primary">
+                        <span>View Projects</span>
+                        <i class="fa-solid fa-arrow-down"></i>
+                    </a>
+                    <button class="btn-secondary" onclick="openResumeModal()">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <span>Preview Resume</span>
+                    </button>
+                </div>
+
+                <div class="hero-socials">
+                    <a href="https://github.com/rudrikasahu18" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="GitHub">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/rudrika-sahu-a5759933a" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="LinkedIn">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </a>
+                    <a href="mailto:rudrikasahucse2024@indoreinstitute.com" class="social-btn" aria-label="Email">
+                        <i class="fa-solid fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Column: Orbital Portrait Showcase (Inspired by Reference Design) -->
+            <div class="orbital-showcase">
+                <!-- Twinkling Star Particles -->
+                <span class="star-dot" style="top: 8%; left: 14%; animation-delay: 0s;"></span>
+                <span class="star-dot" style="top: 18%; right: 10%; animation-delay: 1.1s;"></span>
+                <span class="star-dot" style="bottom: 22%; left: 8%; animation-delay: 0.6s;"></span>
+                <span class="star-dot" style="bottom: 10%; right: 16%; animation-delay: 1.7s;"></span>
+                <span class="star-dot" style="top: 48%; left: 4%; animation-delay: 2.2s;"></span>
+
+                <!-- Glowing Blue-to-Violet Sphere Behind Portrait -->
+                <div class="glow-sphere"></div>
+
+                <!-- Two Tilted Elliptical Orbital Rings -->
+                <div class="orbit-ring ring-one">
+                    <span class="orbit-satellite"></span>
+                </div>
+                <div class="orbit-ring ring-two"></div>
+
+                <!-- Floating Badge 1: Top-Right Code Pill -->
+                <div class="floating-pill pill-top-right">
+                    <span class="syntax-fn">print</span>(<span class="syntax-str">"Hello, world!"</span>)
+                </div>
+
+                <!-- Floating Badge 2: Bottom-Left Role Pill -->
+                <div class="floating-pill pill-bottom-left">
+                    <span>&lt;cyber &amp; ui/ux /&gt;</span>
+                    <span class="pill-sparkle">✦</span>
+                </div>
+
+                <!-- Floating Badge 3: Bottom-Right Binary Tag Pill -->
+                <div class="floating-pill pill-bottom-right">
+                    <span class="syntax-bin">0101</span> &middot; SECURE &middot; DESIGN
+                </div>
+
+                <!-- Tall Rounded-Rectangle Portrait Frame (3:4 Aspect Ratio) -->
+                <div class="portrait-frame-outer">
+                    <div class="portrait-frame-inner">
+                        <img id="hero-portrait-img" src="20260427_162003.jpg" alt="Rudrika Sahu Portrait" onerror="this.style.display='none'; document.getElementById('portrait-fallback').style.display='flex';">
+                        
+                        <!-- Elegant Fallback when local image isn't loaded yet -->
+                        <div id="portrait-fallback" class="portrait-fallback" style="display: none;">
+                            <div class="fallback-circle">RS</div>
+                            <span class="fallback-name">Rudrika Sahu</span>
+                            <span class="fallback-sub">IIST Indore • B.Tech CSE</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================
+         3. EDUCATIONAL BACKGROUND, INTERESTS & CAREER GOALS
+         ======================================================================== -->
+    <section id="about" class="section-alt">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">// 01. About Me</span>
+                <h2 class="section-title">Educational Background, Interests &amp; Career Goals</h2>
+                <p class="section-desc">Combining strong computer science fundamentals with a passion for defensive security and human-centered design.</p>
+            </div>
+
+            <div class="about-cards-grid">
+                <!-- Card 1: Educational Background -->
+                <div class="info-card">
+                    <div class="card-icon icon-cyber">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <h3>Educational Background</h3>
+                    <p>
+                        Currently pursuing a <strong>B.Tech in Computer Science &amp; Engineering (3rd Year)</strong> at <strong>Indore Institute of Science and Technology (IIST), Indore</strong>, holding a 2nd-year CGPA of <strong>7.02 / 10</strong>.
+                    </p>
+                    <ul class="clean-list">
+                        <li><i class="fa-solid fa-check"></i><span>Active member of the IIST Cybersecurity Club</span></li>
+                        <li><i class="fa-solid fa-check"></i><span>Participant in Smart India Hackathon (SIH)</span></li>
+                    </ul>
+                </div>
+
+                <!-- Card 2: Core Interests -->
+                <div class="info-card">
+                    <div class="card-icon icon-design">
+                        <i class="fa-solid fa-compass"></i>
+                    </div>
+                    <h3>Interests &amp; Focus Areas</h3>
+                    <p>
+                        I enjoy exploring the intersection where robust system security meets clear, accessible user experiences.
+                    </p>
+                    <ul class="clean-list">
+                        <li><i class="fa-solid fa-check"></i><span>Network Defense, Vulnerability Auditing &amp; Cryptography</span></li>
+                        <li><i class="fa-solid fa-check"></i><span>AI Audio Anti-Spoofing &amp; Deepfake Voice Detection</span></li>
+                        <li><i class="fa-solid fa-check"></i><span>UI/UX Prototyping, Design Systems &amp; Usability Testing</span></li>
+                    </ul>
+                </div>
+
+                <!-- Card 3: Career Goals -->
+                <div class="info-card">
+                    <div class="card-icon icon-cyan">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <h3>Career Goals</h3>
+                    <p>
+                        Seeking hands-on industry exposure where I can contribute fresh problem-solving skills while learning from experienced mentors.
+                    </p>
+                    <ul class="clean-list">
+                        <li><i class="fa-solid fa-check"></i><span><strong>Short-Term:</strong> Secure an internship in Cybersecurity or UI/UX Design</span></li>
+                        <li><i class="fa-solid fa-check"></i><span><strong>Long-Term:</strong> Build secure-by-design digital products as a Security Analyst &amp; Product Designer</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================
+         4. TECHNICAL SKILLS SECTION
+         ======================================================================== -->
+    <section id="skills">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">// 02. Technical Skills</span>
+                <h2 class="section-title">Languages, Security Tools &amp; Design Stack</h2>
+                <p class="section-desc">Core programming languages, cybersecurity utilities, and UI/UX design tools I work with.</p>
+            </div>
+
+            <div class="skills-grid">
+                <!-- Category 1: Programming & Web -->
+                <div class="skill-box">
+                    <div class="skill-header">
+                        <div class="card-icon icon-cyan" style="margin-bottom: 0;">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <h3>Programming &amp; Web</h3>
+                    </div>
+                    <div class="pill-wrap">
+                        <span class="skill-pill">HTML5</span>
+                        <span class="skill-pill">CSS3</span>
+                        <span class="skill-pill">Python</span>
+                        <span class="skill-pill">C</span>
+                        <span class="skill-pill">SQL</span>
+                    </div>
+                </div>
+
+                <!-- Category 2: Cybersecurity -->
+                <div class="skill-box">
+                    <div class="skill-header">
+                        <div class="card-icon icon-cyber" style="margin-bottom: 0;">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3>Cybersecurity</h3>
+                    </div>
+                    <div class="pill-wrap">
+                        <span class="skill-pill">Nmap</span>
+                        <span class="skill-pill">Burp Suite</span>
+                        <span class="skill-pill">Linux Security</span>
+                        <span class="skill-pill">Cryptography</span>
+                        <span class="skill-pill">OWASP Top 10</span>
+                    </div>
+                </div>
+
+                <!-- Category 3: UI/UX Design -->
+                <div class="skill-box">
+                    <div class="skill-header">
+                        <div class="card-icon icon-design" style="margin-bottom: 0;">
+                            <i class="fa-solid fa-pen-nib"></i>
+                        </div>
+                        <h3>UI/UX Design</h3>
+                    </div>
+                    <div class="pill-wrap">
+                        <span class="skill-pill">Figma</span>
+                        <span class="skill-pill">Prototyping</span>
+                        <span class="skill-pill">User Research</span>
+                        <span class="skill-pill">Design Systems</span>
+                        <span class="skill-pill">Usability Testing</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================
+         5. ACADEMIC & PERSONAL PROJECTS SECTION
+         ======================================================================== -->
+    <section id="projects" class="section-alt">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">// 03. Projects</span>
+                <h2 class="section-title">Academic &amp; Personal Projects</h2>
+                <p class="section-desc">Hackathon builds, Cybersecurity Club lab work, and web engineering projects.</p>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Project 1: SIH Voice Cloning Detection -->
+                <article class="project-card">
+                    <div class="project-body">
+                        <div class="project-top">
+                            <div class="card-icon icon-cyber" style="margin-bottom: 0;">
+                                <i class="fa-solid fa-microphone-lines"></i>
+                            </div>
+                            <span class="badge-cyber">SIH Hackathon</span>
+                        </div>
+                        <h3 class="project-title">AI-Powered Voice Cloning Detection Application</h3>
+                        <p class="project-desc">
+                            Built for Smart India Hackathon (SIH) to detect synthetic audio and deepfake voice impersonation in real time, paired with a clean, user-friendly risk alert dashboard.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Audio Anti-Spoofing</span>
+                            <span class="project-tag">Cybersecurity</span>
+                            <span class="project-tag">UI/UX Design</span>
+                        </div>
+                    </div>
+                    <div class="project-footer">
+                        <button class="btn-details" onclick="openProjectModal(0)">
+                            <i class="fa-regular fa-folder-open"></i>
+                            <span>Project Details</span>
+                        </button>
+                        <a href="https://github.com/rudrikasahu18" target="_blank" rel="noopener noreferrer" class="repo-link">
+                            <i class="fa-brands fa-github"></i>
+                            <span>GitHub</span>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Project 2: Cybersecurity Lab & Vulnerability Assessment Suite -->
+                <article class="project-card">
+                    <div class="project-body">
+                        <div class="project-top">
+                            <div class="card-icon icon-cyan" style="margin-bottom: 0;">
+                                <i class="fa-solid fa-user-shield"></i>
+                            </div>
+                            <span class="badge-cyber">Cybersecurity Club</span>
+                        </div>
+                        <h3 class="project-title">Cybersecurity Lab &amp; Vulnerability Assessment Suite</h3>
+                        <p class="project-desc">
+                            Hands-on security testing, network scanning, and role-based access control auditing developed through Cybersecurity Club initiatives and practice labs.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Nmap</span>
+                            <span class="project-tag">Burp Suite</span>
+                            <span class="project-tag">Linux Security</span>
+                            <span class="project-tag">RBAC Auditing</span>
+                        </div>
+                    </div>
+                    <div class="project-footer">
+                        <button class="btn-details" onclick="openProjectModal(1)">
+                            <i class="fa-regular fa-folder-open"></i>
+                            <span>Project Details</span>
+                        </button>
+                        <a href="https://github.com/rudrikasahu18" target="_blank" rel="noopener noreferrer" class="repo-link">
+                            <i class="fa-brands fa-github"></i>
+                            <span>GitHub</span>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Project 3: Personal Responsive Web Portfolio -->
+                <article class="project-card">
+                    <div class="project-body">
+                        <div class="project-top">
+                            <div class="card-icon icon-design" style="margin-bottom: 0;">
+                                <i class="fa-solid fa-laptop-code"></i>
+                            </div>
+                            <span class="badge-design">Web &amp; UI/UX</span>
+                        </div>
+                        <h3 class="project-title">Personal Responsive Web Portfolio</h3>
+                        <p class="project-desc">
+                            Designed and coded from scratch using semantic HTML5 and modern CSS3 for 3rd-year B.Tech web engineering coursework with full mobile responsiveness.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">HTML5</span>
+                            <span class="project-tag">CSS3</span>
+                            <span class="project-tag">Figma</span>
+                            <span class="project-tag">Responsive UI</span>
+                        </div>
+                    </div>
+                    <div class="project-footer">
+                        <button class="btn-details" onclick="openProjectModal(2)">
+                            <i class="fa-regular fa-folder-open"></i>
+                            <span>Project Details</span>
+                        </button>
+                        <a href="https://github.com/rudrikasahu18" target="_blank" rel="noopener noreferrer" class="repo-link">
+                            <i class="fa-brands fa-github"></i>
+                            <span>GitHub</span>
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================
+         6. QUALIFICATIONS, INSTITUTIONS & PASSING YEARS
+         ======================================================================== -->
+    <section id="qualifications">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">// 04. Qualifications</span>
+                <h2 class="section-title">Qualifications, Institutions &amp; Passing Years</h2>
+                <p class="section-desc">Structured academic record from secondary schooling through my current 3rd year of B.Tech CSE.</p>
+            </div>
+
+            <!-- Structured HTML Table -->
+            <div class="qual-table-wrapper">
+                <table class="qual-table">
+                    <thead>
+                        <tr>
+                            <th>Qualification / Degree</th>
+                            <th>Institution / Board</th>
+                            <th>Passing Year</th>
+                            <th>Score / Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="qual-degree">B.Tech in Computer Science &amp; Engineering</td>
+                            <td>Indore Institute of Science and Technology (IIST), Indore</td>
+                            <td class="mono">2024 – 2028</td>
+                            <td><span class="badge-cyber">Pursuing (3rd Year) • 7.02 CGPA</span></td>
+                        </tr>
+                        <tr>
+                            <td class="qual-degree">Higher Secondary (Class XII)</td>
+                            <td>Senior Secondary School, Indore (CBSE / MP Board)</td>
+                            <td class="mono">2024</td>
+                            <td>Completed (Science &amp; Mathematics)</td>
+                        </tr>
+                        <tr>
+                            <td class="qual-degree">Secondary School (Class X)</td>
+                            <td>High School, Indore (CBSE / MP Board)</td>
+                            <td class="mono">2022</td>
+                            <td>Completed</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Visual Timeline Cards -->
+            <div class="qual-cards-grid">
+                <div class="qual-card">
+                    <span class="qual-year">2024 – 2028 (Pursuing • 3rd Year)</span>
+                    <h4>B.Tech in Computer Science &amp; Engineering</h4>
+                    <p>Indore Institute of Science and Technology (IIST), Indore • 2nd Year CGPA: 7.02 / 10</p>
+                </div>
+
+                <div class="qual-card secondary">
+                    <span class="qual-year" style="color: var(--accent-design);">Passing Year: 2024</span>
+                    <h4>Higher Secondary (Class XII)</h4>
+                    <p>Senior Secondary School, Indore (CBSE / MP Board) • Science &amp; Mathematics</p>
+                </div>
+
+                <div class="qual-card secondary">
+                    <span class="qual-year" style="color: var(--accent-design);">Passing Year: 2022</span>
+                    <h4>Secondary School (Class X)</h4>
+                    <p>High School, Indore (CBSE / MP Board) • General Sciences &amp; Computer Applications</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================
+         7. CONTACT & SOCIAL PROFILES SECTION
+         ======================================================================== -->
+    <section id="contact" class="section-alt">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">// 05. Contact</span>
+                <h2 class="section-title">Contact &amp; Social Profiles</h2>
+                <p class="section-desc">Reach out directly via email, connect on LinkedIn or GitHub, or send a message below.</p>
+            </div>
+
+            <div class="contact-grid">
+                <!-- Left Card: Direct Email & Social Profiles -->
+                <div class="contact-card">
+                    <h3>Connect With Me</h3>
+                    <p>
+                        I am actively looking for entry-level internships and collaborative student projects in Cybersecurity and UI/UX Design. Feel free to reach out!
+                    </p>
+
+                    <div class="social-links-list">
+                        <a href="mailto:rudrikasahucse2024@indoreinstitute.com" class="social-item">
+                            <i class="fa-solid fa-envelope"></i>
+                            <span>rudrikasahucse2024@indoreinstitute.com</span>
+                        </a>
+                        <a href="https://github.com/rudrikasahu18" target="_blank" rel="noopener noreferrer" class="social-item">
+                            <i class="fa-brands fa-github"></i>
+                            <span>github.com/rudrikasahu18</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/rudrika-sahu-a5759933a" target="_blank" rel="noopener noreferrer" class="social-item">
+                            <i class="fa-brands fa-linkedin"></i>
+                            <span>linkedin.com/in/rudrika-sahu-a5759933a</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Card: Validated Contact Form -->
+                <div class="contact-card">
+                    <h3>Send a Message</h3>
+                    <form id="contact-form" onsubmit="handleFormSubmit(event)" novalidate>
+                        <div class="form-group">
+                            <label class="form-label" for="sender-name">Your Name</label>
+                            <input type="text" id="sender-name" class="form-control" placeholder="Enter your name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="sender-email">Email Address</label>
+                            <input type="email" id="sender-email" class="form-control" placeholder="you@example.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="sender-message">Message</label>
+                            <textarea id="sender-message" class="form-control" placeholder="Write your message here..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit">
+                            <i class="fa-regular fa-paper-plane"></i>
+                            <span>Send Message</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================
+         FOOTER
+         ======================================================================== -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Rudrika Sahu (she/her) • 3rd Year B.Tech CSE, Indore Institute of Science and Technology (IIST), Indore.</p>
+        </div>
+    </footer>
+
+    <!-- ========================================================================
+         PROJECT DETAILS MODAL
+         ======================================================================== -->
+    <div class="modal-backdrop" id="project-modal" onclick="closeModalOnBackdrop(event)">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeProjectModal()" aria-label="Close modal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <span id="modal-badge" class="badge-cyber" style="display: inline-block; margin-bottom: 0.75rem;">Category</span>
+            <h3 id="modal-title" style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.85rem;">Project Title</h3>
+            <p id="modal-overview" style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.25rem;"></p>
+
+            <div style="background: var(--bg-primary); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.1rem; margin-bottom: 1.35rem;">
+                <h4 class="mono" style="font-size: 0.78rem; color: var(--accent-cyan); text-transform: uppercase; margin-bottom: 0.6rem;">Key Highlights</h4>
+                <ul id="modal-points" class="clean-list"></ul>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 0.8rem;">
+                <button class="btn-secondary" style="padding: 0.65rem 1.2rem;" onclick="closeProjectModal()">Close</button>
+                <a href="https://github.com/rudrikasahu18" target="_blank" rel="noopener noreferrer" class="btn-primary" style="padding: 0.65rem 1.2rem;">
+                    <i class="fa-brands fa-github"></i>
+                    <span>GitHub Profile</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Confirmation Banner -->
+    <div class="toast" id="toast">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toast-msg">Message sent!</span>
+    </div>
+
+    <!-- ========================================================================
+         RESUME PREVIEW MODAL
+         ======================================================================== -->
+    <div class="modal-backdrop" id="resume-modal" onclick="closeResumeOnBackdrop(event)">
+        <div class="modal-box" style="max-width: 680px;">
+            <button class="modal-close" onclick="closeResumeModal()" aria-label="Close resume modal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div style="border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem; margin-bottom: 1.25rem;">
+                <span class="badge-cyber" style="display: inline-block; margin-bottom: 0.5rem;">Student Resume Preview</span>
+                <h3 style="font-size: 1.55rem; font-weight: 800;">Rudrika Sahu <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 500;">(she/her)</span></h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">3rd Year B.Tech CSE • Indore Institute of Science and Technology (IIST), Indore</p>
+                <p class="mono" style="font-size: 0.78rem; color: var(--accent-cyan); margin-top: 0.35rem;">
+                    rudrikasahucse2024@indoreinstitute.com &bull; github.com/rudrikasahu18
+                </p>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 1rem; font-size: 0.92rem; color: var(--text-secondary);">
+                <div>
+                    <h4 class="mono" style="font-size: 0.78rem; color: var(--accent-cyber); text-transform: uppercase; margin-bottom: 0.35rem;">Education</h4>
+                    <p><strong style="color: var(--text-primary);">B.Tech in Computer Science &amp; Engineering (2024 – 2028)</strong><br>
+                    Indore Institute of Science and Technology (IIST), Indore &bull; 2nd Year CGPA: <strong>7.02 / 10</strong></p>
+                </div>
+
+                <div>
+                    <h4 class="mono" style="font-size: 0.78rem; color: var(--accent-cyber); text-transform: uppercase; margin-bottom: 0.35rem;">Technical &amp; Design Skills</h4>
+                    <p><strong style="color: var(--text-primary);">Languages &amp; Web:</strong> HTML5, CSS3, Python, C, SQL<br>
+                    <strong style="color: var(--text-primary);">Cybersecurity:</strong> Nmap, Burp Suite, Linux Security, Cryptography, OWASP Top 10<br>
+                    <strong style="color: var(--text-primary);">UI/UX Design:</strong> Figma, Prototyping, User Research, Design Systems, Usability Testing</p>
+                </div>
+
+                <div>
+                    <h4 class="mono" style="font-size: 0.78rem; color: var(--accent-cyber); text-transform: uppercase; margin-bottom: 0.35rem;">Projects &amp; Campus Involvement</h4>
+                    <ul class="clean-list">
+                        <li><i class="fa-solid fa-check"></i><span><strong>AI Voice Cloning Detection App (SIH):</strong> Real-time deepfake voice detection and user risk alert interface.</span></li>
+                        <li><i class="fa-solid fa-check"></i><span><strong>Cybersecurity Club Member (IIST Indore):</strong> Active participant in vulnerability labs, Nmap/Burp Suite scanning, and security workshops.</span></li>
+                        <li><i class="fa-solid fa-check"></i><span><strong>Personal Responsive Web Portfolio:</strong> Hand-coded responsive portfolio using semantic HTML5 and modern CSS3.</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 0.8rem; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle);">
+                <button class="btn-secondary" style="padding: 0.65rem 1.2rem;" onclick="closeResumeModal()">Close</button>
+                <button class="btn-primary" style="padding: 0.65rem 1.2rem;" onclick="window.print()">
+                    <i class="fa-solid fa-print"></i>
+                    <span>Print / Save PDF</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================================
+         ORBITAL SHOWCASE STYLING & INTERACTIVE SCRIPTS
+         ======================================================================== -->
+    <style>
+        /* Orbital Portrait Showcase Container */
+        .orbital-showcase {
+            position: relative;
+            width: 100%;
+            min-height: 450px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            user-select: none;
+        }
+
+        /* Glowing Blue-to-Violet Sphere Behind Portrait */
+        .glow-sphere {
+            position: absolute;
+            width: 310px;
+            height: 310px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 28% 32%, rgba(56, 189, 248, 0.55), rgba(99, 102, 241, 0.42) 48%, rgba(139, 92, 246, 0.22) 72%, transparent 80%);
+            filter: blur(2px);
+            box-shadow: 0 0 70px rgba(56, 189, 248, 0.22), inset 0 0 40px rgba(139, 92, 246, 0.35);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Elliptical Orbital Rings */
+        .orbit-ring {
+            position: absolute;
+            width: 440px;
+            height: 145px;
+            border-radius: 50%;
+            border: 1px solid rgba(56, 189, 248, 0.28);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .ring-one {
+            transform: rotate(-14deg);
+            box-shadow: 0 0 18px rgba(6, 182, 212, 0.12);
+        }
+
+        .ring-two {
+            width: 470px;
+            height: 165px;
+            transform: rotate(10deg);
+            border-color: rgba(139, 92, 246, 0.24);
+        }
+
+        /* Glowing Cyan Orbiting Dot */
+        .orbit-satellite {
+            position: absolute;
+            right: 26px;
+            top: 50%;
+            width: 10px;
+            height: 6px;
+            border-radius: 999px;
+            background: #22d3ee;
+            box-shadow: 0 0 12px #22d3ee, 0 0 22px #06b6d4;
+            transform: translateY(-50%);
+        }
+
+        /* Twinkling Background Star Particles */
+        .star-dot {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: rgba(226, 232, 240, 0.75);
+            box-shadow: 0 0 6px rgba(56, 189, 248, 0.8);
+            animation: twinkle 3s infinite ease-in-out;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.25; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.35); }
+        }
+
+        /* Tall Rounded-Rectangle Portrait Frame (Aspect Ratio ~3:4) */
+        .portrait-frame-outer {
+            position: relative;
+            width: 245px;
+            aspect-ratio: 3 / 4;
+            border-radius: 26px;
+            padding: 3px;
+            background: linear-gradient(145deg, rgba(56, 189, 248, 0.65), rgba(30, 41, 59, 0.9) 45%, rgba(139, 92, 246, 0.65));
+            box-shadow:
+                0 25px 50px -12px rgba(0, 0, 0, 0.75),
+                0 0 30px rgba(6, 182, 212, 0.18);
+            z-index: 3;
+            transition: transform 0.35s ease;
+        }
+
+        .portrait-frame-outer:hover {
+            transform: translateY(-4px);
+        }
+
+        .portrait-frame-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 23px;
+            overflow: hidden;
+            background: linear-gradient(160deg, #162033, #0b1120);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .portrait-frame-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+            display: block;
+        }
+
+        /* Fallback Avatar Styling inside 3:4 Frame */
+        .portrait-fallback {
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.25rem;
+            text-align: center;
+            background: radial-gradient(circle at 50% 35%, rgba(56, 189, 248, 0.14), rgba(15, 23, 42, 0.95));
+        }
+
+        .fallback-circle {
+            width: 84px;
+            height: 84px;
+            border-radius: 50%;
+            border: 2px solid rgba(56, 189, 248, 0.45);
+            background: rgba(30, 41, 59, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.85rem;
+        }
+
+        .fallback-name {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            margin-bottom: 0.2rem;
+        }
+
+        .fallback-sub {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--accent-cyan);
+        }
+
+        /* Floating Translucent Glassmorphism Code/Tech Pills */
+        .floating-pill {
+            position: absolute;
+            background: rgba(13, 20, 36, 0.84);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(148, 163, 184, 0.22);
+            border-radius: 12px;
+            padding: 0.6rem 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            color: var(--text-primary);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+            z-index: 4;
+            white-space: nowrap;
+            animation: floatSlow 5s ease-in-out infinite;
+        }
+
+        .pill-top-right {
+            top: 26px;
+            right: 4px;
+            animation-delay: 0s;
+        }
+
+        .pill-bottom-left {
+            bottom: 84px;
+            left: -6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            animation-delay: 1.5s;
+        }
+
+        .pill-bottom-right {
+            bottom: 18px;
+            right: 12px;
+            font-size: 0.76rem;
+            letter-spacing: 0.6px;
+            animation-delay: 2.8s;
+        }
+
+        .syntax-fn { color: #38bdf8; }
+        .syntax-str { color: #a5f3fc; }
+        .syntax-bin { color: #38bdf8; font-weight: 700; }
+        .pill-sparkle { color: #22d3ee; }
+
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+
+        @media (max-width: 540px) {
+            .orbital-showcase {
+                min-height: 410px;
+                padding: 1rem 0.25rem;
+            }
+            .portrait-frame-outer {
+                width: 210px;
+            }
+            .glow-sphere {
+                width: 260px;
+                height: 260px;
+            }
+            .orbit-ring {
+                width: 330px;
+                height: 115px;
+            }
+            .ring-two {
+                width: 355px;
+                height: 130px;
+            }
+            .floating-pill {
+                font-size: 0.72rem;
+                padding: 0.48rem 0.78rem;
+            }
+            .pill-top-right { top: 14px; right: 0; }
+            .pill-bottom-left { bottom: 68px; left: 0; }
+            .pill-bottom-right { bottom: 10px; right: 4px; }
+        }
+    </style>
+
+    <script>
+        // Project Details Data for Interactive Modal
+        const projectsData = [
+            {
+                badge: 'SIH Hackathon Project',
+                badgeClass: 'badge-cyber',
+                title: 'AI-Powered Voice Cloning Detection Application',
+                overview: 'Developed during Smart India Hackathon (SIH) to identify synthetic, AI-generated voice clones and prevent audio spoofing fraud. Focused on creating an intuitive, clear warning interface alongside backend detection pipelines.',
+                points: [
+                    'Analyzes audio frequency artifacts to distinguish human speech from synthetic voice clones.',
+                    'Designed an accessible, real-time confidence score and risk-alert UI for non-technical users.',
+                    'Built collaboratively in Python with modular testing for audio samples.'
+                ]
+            },
+            {
+                badge: 'Cybersecurity Club Lab',
+                badgeClass: 'badge-cyber',
+                title: 'Cybersecurity Lab & Vulnerability Assessment Suite',
+                overview: 'A collection of practical security auditing exercises and network reconnaissance workflows completed as an active member of the IIST Indore Cybersecurity Club.',
+                points: [
+                    'Performed port discovery and service enumeration using Nmap in controlled lab environments.',
+                    'Tested web application authentication and input handling workflows using Burp Suite.',
+                    'Documented remediation checklists aligned with OWASP Top 10 best practices.'
+                ]
+            },
+            {
+                badge: 'Web & UI/UX Engineering',
+                badgeClass: 'badge-design',
+                title: 'Personal Responsive Web Portfolio',
+                overview: 'A custom-designed, single-file responsive portfolio created from scratch for 3rd-year B.Tech CSE web engineering coursework, blending a cybersecurity dark aesthetic with clean UI/UX hierarchy.',
+                points: [
+                    'Crafted with semantic HTML5, modern CSS3 Grid/Flexbox, and glassmorphism accents.',
+                    'Includes interactive project case study modals, resume preview, and mobile navigation.',
+                    'Optimized for desktop, tablet, and smartphone screens without horizontal overflow.'
+                ]
+            }
+        ];
+
+        // Toast Notification Helper
+        let toastTimer;
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            if (!toast || !toastMsg) return;
+
+            toastMsg.textContent = message;
+            toast.classList.add('show');
+
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3200);
+        }
+
+        // Mobile Navigation Drawer Controls
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu) menu.classList.toggle('open');
+        }
+
+        function closeMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu) menu.classList.remove('open');
+        }
+
+        // Project Details Modal Controls
+        function openProjectModal(index) {
+            const project = projectsData[index];
+            if (!project) return;
+
+            const badgeEl = document.getElementById('modal-badge');
+            badgeEl.textContent = project.badge;
+            badgeEl.className = project.badgeClass;
+
+            document.getElementById('modal-title').textContent = project.title;
+            document.getElementById('modal-overview').textContent = project.overview;
+
+            const pointsList = document.getElementById('modal-points');
+            pointsList.innerHTML = project.points
+                .map(pt => `<li><i class="fa-solid fa-check"></i><span>${pt}</span></li>`)
+                .join('');
+
+            document.getElementById('project-modal').classList.add('active');
+        }
+
+        function closeProjectModal() {
+            document.getElementById('project-modal').classList.remove('active');
+        }
+
+        function closeModalOnBackdrop(event) {
+            if (event.target.id === 'project-modal') {
+                closeProjectModal();
+            }
+        }
+
+        // Contact Form Validation & Feedback
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('sender-name').value.trim();
+            const email = document.getElementById('sender-email').value.trim();
+            const message = document.getElementById('sender-message').value.trim();
+
+            if (!name || !email || !message) {
+                showToast('Please fill in all fields before sending.');
+                return;
+            }
+
+            if (!email.includes('@') || !email.includes('.')) {
+                showToast('Please enter a valid email address.');
+                return;
+            }
+
+            showToast(`Thank you, ${name}! Your message has been received.`);
+            document.getElementById('contact-form').reset();
+        }
+
+        // Resume Preview Modal Controls
+        function openResumeModal() {
+            document.getElementById('resume-modal').classList.add('active');
+        }
+
+        function closeResumeModal() {
+            document.getElementById('resume-modal').classList.remove('active');
+        }
+
+        function closeResumeOnBackdrop(event) {
+            if (event.target.id === 'resume-modal') {
+                closeResumeModal();
+            }
+        }
+
+        // Highlight Active Nav Link on Scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('#desktop-nav a[href^="#"]');
+            let currentId = 'home';
+
+            sections.forEach(sec => {
+                const top = sec.offsetTop - 120;
+                if (window.scrollY >= top) {
+                    currentId = sec.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === `#${currentId}`);
+            });
+        });
+    </script>
+</body>
+</html>
